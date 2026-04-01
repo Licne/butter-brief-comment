@@ -1,0 +1,39 @@
+:root {
+  /* 背景 */
+  --bg-page: #F8F5F6;
+  --bg-block: #EAE3E5;
+  --bg-card: #FCFAFC;
+  --bg-card-active: #E5D8DC;
+
+  /* 按钮 */
+  --btn-primary: #D9B9BD;
+  --btn-primary-hover: #BF9AA0;
+  --btn-secondary: #E0D2D6;
+
+  /* 文字 */
+  --text-title: #554C4F;
+  --text-body: #756C70;
+  --text-desc: #988E92;
+  --text-white: #FFFFFF;
+
+  /* 强调 */
+  --color-highlight: #B17E87;
+  --color-mauve: #A88FA2;     
+  --color-taupe: #B89F9A;     
+
+  /* 状态 */
+  --color-success: #A9BBA7;
+  --color-warn: #CCB2A3;
+  --color-danger: #BC9CA2;
+
+  /* 图表 */
+  --chart-grid: #E5DCE0;
+  --chart-tooltip: #B17E87;
+
+  /* 新增 ECharts 配色（补齐） */
+  --echart-1: #B17E87;
+  --echart-2: #D9B9BD;
+  --echart-3: #A88FA2;
+  --echart-4: #B89F9A;
+  --echart-5: #E4D1D7;
+}

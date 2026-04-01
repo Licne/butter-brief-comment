@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 固定根字体大小，禁止 Naive UI 篡改！ */
+html {
+  font-size: 16px !important;
+}
+
+body {
+  font-size: 16px !important;
+}
