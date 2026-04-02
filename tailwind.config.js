@@ -14,7 +14,7 @@ export default {
           primary: "var(--btn-primary)",
           primaryhover: "var(--btn-primary-hover)",
           secondary: "var(--btn-secondary)",
-        }
+        },
         // 文字
         title: "var(--text-title)",
         body: "var(--text-body)",
