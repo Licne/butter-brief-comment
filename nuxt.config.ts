@@ -8,7 +8,6 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
 
   // ==============================================
-  // 👇👇👇 这三行是你【绝对缺少】的救命配置 👇👇👇
   build: {
     transpile: ["naive-ui", "vueuc", "@css-render/vue3-ssr"],
   },

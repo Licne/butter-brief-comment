@@ -79,6 +79,8 @@ const colorGroups: Record<string, ColorItem[]> = {
   '图表 (Charts)': [
     { key: 'chart-grid', label: '图表网格', value: 'var(--chart-grid)', twClass: 'bg-chart-grid' },
     { key: 'chart-tooltip', label: '图表提示', value: 'var(--chart-tooltip)', twClass: 'bg-chart-tooltip' },
+  ],
+  '图表分色 (Charts Colors)': [
     { key: 'echart-1', label: '图表 1', value: 'var(--echart-1)', twClass: 'bg-echart-1' },
     { key: 'echart-2', label: '图表 2', value: 'var(--echart-2)', twClass: 'bg-echart-2' },
     { key: 'echart-3', label: '图表 3', value: 'var(--echart-3)', twClass: 'bg-echart-3' },
