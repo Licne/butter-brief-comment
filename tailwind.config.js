@@ -8,13 +8,13 @@ export default {
         page: "var(--bg-page)",
         block: "var(--bg-block)",
         card: "var(--bg-card)",
-        "card-active": "var(--bg-card-active)",
+        cardactive: "var(--bg-card-active)",
 
-        // 按钮
-        "btn-primary": "var(--btn-primary)",
-        "btn-primary-hover": "var(--btn-primary-hover)",
-        "btn-secondary": "var(--btn-secondary)",
-
+        btn : {
+          primary: "var(--btn-primary)",
+          primaryhover: "var(--btn-primary-hover)",
+          secondary: "var(--btn-secondary)",
+        }
         // 文字
         title: "var(--text-title)",
         body: "var(--text-body)",
@@ -31,14 +31,16 @@ export default {
         warn: "var(--color-warn)",
         danger: "var(--color-danger)",
 
-        // 图表色
-        "chart-grid": "var(--chart-grid)",
-        "chart-tooltip": "var(--chart-tooltip)",
-        "echart-1": "var(--echart-1)",
-        "echart-2": "var(--echart-2)",
-        "echart-3": "var(--echart-3)",
-        "echart-4": "var(--echart-4)",
-        "echart-5": "var(--echart-5)",
+        chart: {
+          grid: "var(--chart-grid)",
+          tooltip: "var(--chart-tooltip)",
+        },
+
+        echart1: "var(--echart-1)",
+        echart2: "var(--echart-2)",
+        echart3: "var(--echart-3)",
+        echart4: "var(--echart-4)",
+        echart5: "var(--echart-5)",
       },
     },
   },

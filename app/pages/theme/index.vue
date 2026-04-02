@@ -51,14 +51,14 @@ interface ColorItem {
 const colorGroups: Record<string, ColorItem[]> = {
   '背景 (Background)': [
     { key: 'page', label: '页面背景', value: 'var(--bg-page)', twClass: 'bg-page' },
-    { key: 'block', label: '区块背景', value: 'var(--bg-block)', twClass: 'bg-block' },
-    { key: 'card', label: '卡片背景', value: 'var(--bg-card)', twClass: 'bg-card' },
-    { key: 'card-active', label: '激活卡片', value: 'var(--bg-card-active)', twClass: 'bg-card-active' },
+    { key: 'block', label: '模块分隔底', value: 'var(--bg-block)', twClass: 'bg-block' },
+    { key: 'card', label: '内容卡片底色', value: 'var(--bg-card)', twClass: 'bg-card' },
+    { key: 'card-active', label: '选中高亮卡片', value: 'var(--bg-card-active)', twClass: 'bg-cardactive' },
   ],
   '按钮 (Buttons)': [
-    { key: 'btn-primary', label: '主要按钮', value: 'var(--btn-primary)', twClass: 'bg-btn-primary' },
+    { key: 'btn-primary', label: '主要按钮常态', value: 'var(--btn-primary)', twClass: 'bg-btn-primary' },
     { key: 'btn-primary-hover', label: '主要按钮悬浮', value: 'var(--btn-primary-hover)', twClass: 'bg-btn-primary-hover' },
-    { key: 'btn-secondary', label: '次要按钮', value: 'var(--btn-secondary)', twClass: 'bg-btn-secondary' },
+    { key: 'btn-secondary', label: '次要按钮/描边', value: 'var(--btn-secondary)', twClass: 'bg-btn-secondary' },
   ],
   '文字 (Typography)': [
     { key: 'title', label: '标题文字', value: 'var(--text-title)', twClass: 'text-title' },
@@ -81,11 +81,11 @@ const colorGroups: Record<string, ColorItem[]> = {
     { key: 'chart-tooltip', label: '图表提示', value: 'var(--chart-tooltip)', twClass: 'bg-chart-tooltip' },
   ],
   '图表分色 (Charts Colors)': [
-    { key: 'echart-1', label: '图表 1', value: 'var(--echart-1)', twClass: 'bg-echart-1' },
-    { key: 'echart-2', label: '图表 2', value: 'var(--echart-2)', twClass: 'bg-echart-2' },
-    { key: 'echart-3', label: '图表 3', value: 'var(--echart-3)', twClass: 'bg-echart-3' },
-    { key: 'echart-4', label: '图表 4', value: 'var(--echart-4)', twClass: 'bg-echart-4' },
-    { key: 'echart-5', label: '图表 5', value: 'var(--echart-5)', twClass: 'bg-echart-5' },
+    { key: 'echart-1', label: '图表 1', value: 'var(--echart-1)', twClass: 'bg-echart1' },
+    { key: 'echart-2', label: '图表 2', value: 'var(--echart-2)', twClass: 'bg-echart2' },
+    { key: 'echart-3', label: '图表 3', value: 'var(--echart-3)', twClass: 'bg-echart3' },
+    { key: 'echart-4', label: '图表 4', value: 'var(--echart-4)', twClass: 'bg-echart4' },
+    { key: 'echart-5', label: '图表 5', value: 'var(--echart-5)', twClass: 'bg-echart5' },
   ]
 }
 

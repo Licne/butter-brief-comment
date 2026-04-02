@@ -174,7 +174,7 @@
 
           <div class="grid md:grid-cols-3 gap-8">
             <div v-for="(work, index) in works" :key="index"
-              class="group bg-card hover:bg-card-active p-8 rounded-[2.5rem] transition-all duration-500 transform hover:-translate-y-2 cursor-pointer border border-block border-opacity-50">
+              class="group bg-card hover:bg-cardactive p-8 rounded-[2.5rem] transition-all duration-500 transform hover:-translate-y-2 cursor-pointer border border-block border-opacity-50">
               <div class="text-4xl mb-6">{{ work.icon }}</div>
               <h3 class="text-xl font-bold text-title mb-3 group-hover:text-highlight transition-colors">{{ work.title
               }}</h3>
