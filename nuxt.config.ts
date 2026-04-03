@@ -5,7 +5,7 @@ import Components from "unplugin-vue-components/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/eslint"],
 
   // ==============================================
   build: {
@@ -46,4 +46,11 @@ export default defineNuxtConfig({
   },
 
   css: ["~/assets/css/tailwind.css", "~/assets/scss/main.scss"],
+
+  imports: {
+    dirs: [
+      '~/types',
+      '~/types/**'
+    ]
+  },
 });
