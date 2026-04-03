@@ -13,6 +13,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     NButton: typeof import('naive-ui')['NButton']
+    NCard: typeof import('naive-ui')['NCard']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NLoadingBar: typeof import('naive-ui')['NLoadingBar']
@@ -29,6 +30,7 @@ declare module 'vue' {
 // For TSX support
 declare global {
   const NButton: typeof import('naive-ui')['NButton']
+  const NCard: typeof import('naive-ui')['NCard']
   const NConfigProvider: typeof import('naive-ui')['NConfigProvider']
   const NDialogProvider: typeof import('naive-ui')['NDialogProvider']
   const NLoadingBar: typeof import('naive-ui')['NLoadingBar']

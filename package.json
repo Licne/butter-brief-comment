@@ -21,6 +21,7 @@
     "vueuc": "^0.4.65"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "naive-ui": "^2.44.1",
     "sass": "^1.98.0"
   }
