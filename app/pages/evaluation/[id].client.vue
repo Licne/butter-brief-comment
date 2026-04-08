@@ -10,10 +10,15 @@
 
 const evaluation = ref<Evaluation>({
     id: 0,
-    titleCN: '',
-    titleEN: '',
+    gameNameCN: '',
+    gameName: '',
+    gameType: '',
+    gameIntro: '',
     mark: {
-        content: ''
+        baseScore: [],
+        typeWeight: [],
+        finalScore: 0,
+        ratingName: ''
     }
 })
 
