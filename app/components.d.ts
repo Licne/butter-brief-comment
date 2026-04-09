@@ -22,6 +22,7 @@ declare module 'vue' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NNotification: typeof import('naive-ui')['NNotification']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+    NSpace: typeof import('naive-ui')['NSpace']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
@@ -39,6 +40,7 @@ declare global {
   const NMessageProvider: typeof import('naive-ui')['NMessageProvider']
   const NNotification: typeof import('naive-ui')['NNotification']
   const NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+  const NSpace: typeof import('naive-ui')['NSpace']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
 }

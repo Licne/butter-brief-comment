@@ -1,38 +1,27 @@
 <template>
     <div>
         <n-card>
-            {{ evaluation.titleCN }}
+            {{ evaluation?.gameNameCN }}
         </n-card>
     </div>
 </template>
 
 <script setup lang="ts">
+import { getEvaluationById } from '~/utils/mockEvaluation'
 
-const evaluation = ref<Evaluation>({
-    id: 0,
-    gameNameCN: '',
-    gameName: '',
-    gameType: '',
-    gameIntro: '',
-    mark: {
-        baseScore: [],
-        typeWeight: [],
-        finalScore: 0,
-        ratingName: ''
-    }
-})
+const evaluation = ref<Evaluation>()
 
 const route = useRoute()
 const message = useMessage()
+const evaluationId = route.params.id as string
 
-const evaluationId = Number(route.params.id)
-
-// 判断：如果不是有效数字 → 退回上一页
-if (isNaN(evaluationId) || evaluationId <= 0) {
-    message.error('评测ID无效')
+// 从mockEvaluation中获取对应ID的评价
+evaluation.value = getEvaluationById(evaluationId.toString())
+// 判断：如果未找到对应ID的评价 → 退回上一页
+if (!evaluation.value) {
+    message.error('评测不存在')
     await navigateTo('/evaluation/list')
 }
-
 </script>
 
 <style lang="scss" scoped></style>
