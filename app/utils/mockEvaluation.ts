@@ -2,53 +2,53 @@
 // 游戏id 格式：[年份2位][游戏类型1位][游戏评分版本2位][序号4位]
 // 已知类型 11 SLG
 const evaluationData : Evaluation[] = [
-    {
+    {   
         id: '26h110001',
-        gameNameCN: '游戏1',
-        gameName: 'Game1',
+        gameNameCN: '能干的学妹葵酱！',
+        gameName: 'できる後輩アオイちゃん',
         gameType: 'SLG',
-        gameIntro: '这是一款SLG游戏',
+        gameIntro: '这是一款非常好的美少女SLG游戏',
         mark: {
             baseScore: [
                 {
                     idx: 0,
                     dimension: '视听',
-                    score: 80,
-                    tag: ['好'],
-                    correction: 0.5,
+                    score: 8,
+                    tag: ['素材精致','全优质配音','UI精良','风格舒适'],
+                    correction: 1.1,
                 },
                 {
                     idx: 1,
                     dimension: '实用',
-                    score: 80,
-                    tag: ['好'],
-                    correction: 0.5,
+                    score: 7.5,
+                    tag: ['3D','动态CG','独立CV配音','操作互动较好','多样CG形式'],
+                    correction: 1.1,
                 },
                 {
                     idx: 2,
                     dimension: '剧情',
-                    score: 80,
-                    tag: ['好'],
-                    correction: 0.5,
+                    score: 7,
+                    tag: ['舒适流畅','优秀人物塑造','较好纯爱描写'],
+                    correction: 1,
                 },
                 {
                     idx: 3,
                     dimension: '游戏',
-                    score: 80,
-                    tag: ['好'],
-                    correction: 0.5,
+                    score: 7.5,
+                    tag: ['较有趣核心玩法','流畅操作手感','合理游戏节奏','充足游戏深度','良好的自由度'],
+                    correction: 1,
                 },
                 {
                     idx: 4,
                     dimension: '沉浸',
-                    score: 80,
-                    tag: ['好'],
-                    correction: 0.5,
+                    score: 9.5,
+                    tag: ['丰富的台词大文本','全优质配音','生动表情动作','惊喜的人物逻辑','真实的人物塑造','生活感氛围'],
+                    correction: 1,
                 },
             ],
-            typeWeight: [0.2, 0.2, 0.2, 0.2, 0.2],
-            finalScore: 80,
-            ratingName: 'A',
+            typeWeight: [0.25, 0.3, 0.1, 0.15, 0.2],
+            finalScore: 8.4,
+            ratingName: ['A','卓越'],
         }
     },
 ]
