@@ -1,11 +1,11 @@
 // 游戏评价数据
-// 游戏id 格式：[年份2位][游戏类型1位][游戏评分版本2位][序号4位]
+// 游戏id 格式：[年份2位][分数分段][游戏序号][游戏测评版本]
 // 已知类型 11 SLG
 const evaluationData : Evaluation[] = [
     {   
-        id: '26h110001',
+        id: '2680011',
         gameNameCN: '能干的学妹葵酱！',
-        gameName: 'できる後輩アオイちゃん',
+        gameName: 'できる後輩アオイちゃん～二人ぐらし始まっちゃいました～',
         gameType: 'SLG',
         gameIntro: '这是一款非常好的美少女SLG游戏',
         mark: {

@@ -1,13 +1,15 @@
 <template>
   <div class="min-h-screen bg-page text-body font-sans p-6 md:p-6 overflow-x-hidden">
-    <div v-if="evaluation" class="max-w-7xl mx-auto space-y-6 " >
+    <div v-if="evaluation" class="max-w-7xl mx-auto space-y-6 ">
       <!-- 1. 游戏基础信息 & 雷达图 -->
       <section class="grid md:grid-cols-12 gap-12 items-start">
         <!-- 基础信息 -->
         <div class="md:col-span-8 flex flex-col gap-8 items-start">
           <!-- 封面图占位符 -->
           <div class="md:col-span-7 flex flex-col md:flex-row gap-8 items-start">
-            <div class="w-48 h-64 bg-block rounded-2xl flex-shrink-0 overflow-hidden relative group">
+            <div class="w-48 h-64 bg-block rounded-2xl flex-shrink-0 overflow-hidden relative group ">
+              <img :src="`/assets/cover/${route.params.id}.png`" :alt="evaluation.gameNameCN"
+                class="w-full h-full object-cover object-left" @error="(e) => (e.target as HTMLImageElement).style.display = 'none'" />
               <div class="absolute inset-0 bg-gradient-to-tr from-highlight/20 to-transparent"></div>
               <div class="w-full h-full flex items-center justify-center text-desc font-bold text-sm">
                 COVER IMAGE
@@ -23,19 +25,34 @@
               </h1>
               <h2 class="text-xl text-desc">{{ evaluation.gameName }}</h2>
 
-              <!-- 总分展示 -->
-              <div class="pt-4 flex items-end gap-4">
-                <div class="text-6xl font-black text-highlight leading-none">
-                  {{ evaluation.mark?.finalScore?.toFixed(1) }}
-                </div>
-                <div class="pb-1">
-                  <div class="text-[10px] font-bold text-desc uppercase tracking-widest">TOTAL SCORE</div>
-                  <div v-if="evaluation.mark?.ratingName" class="flex gap-2 mt-1">
-                    <span v-for="tag in evaluation.mark.ratingName" :key="tag"
-                      class="px-2 py-0.5 bg-btn-primaryhover text-white text-[16px] font-bold rounded">
-                      {{ tag }}
-                    </span>
+              <!-- 总分展示 & 操作按钮 -->
+              <div class="pt-4 flex items-end justify-between gap-4">
+                <div class="flex items-end gap-4">
+                  <div class="text-6xl font-black leading-none"
+                    :style="{ color: getDimensionColor(evaluation.mark?.finalScore || 0) }">
+                    {{ evaluation.mark?.finalScore?.toFixed(1) }}
                   </div>
+                  <div class="pb-1">
+                    <div class="text-[10px] font-bold text-desc uppercase tracking-widest">TOTAL SCORE</div>
+                    <div v-if="evaluation.mark?.ratingName" class="flex gap-2 mt-1">
+                      <span v-for="tag in evaluation.mark.ratingName" :key="tag"
+                        class="px-2 py-0.5 bg-btn-primaryhover text-white text-[16px] font-bold rounded">
+                        {{ tag }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pb-1">
+                  <button
+                    class="px-6 py-2 bg-highlight text-white text-sm font-bold rounded-full hover:bg-highlight/90 transition-all shadow-lg shadow-highlight/20 flex items-center gap-2 group active:scale-95">
+                    <span>获取资源</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -48,7 +65,7 @@
         </div>
         <!-- 雷达图展示区域 -->
         <div class="md:col-span-4 bg-card bg-opacity-70 backdrop-blur-md p-6 rounded-[2.5rem]  border border-block">
-          <h3 class="text-center font-bold text-title mb-4 tracking-widest uppercase text-sm">维度评分雷达图</h3>
+          <h3 class="text-center font-bold text-title mb-4 tracking-widest uppercase text-sm">基础维度评分</h3>
           <div ref="radarChartRef" class="w-full h-72"></div>
         </div>
       </section>
@@ -57,23 +74,23 @@
         <div v-for="(dim, idx) in evaluation.mark?.baseScore" :key="idx"
           class="bg-white p-6 rounded-[2rem] border border-block group hover:-translate-y-2 transition-all duration-300">
           <div class="flex justify-between items-start mb-4">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner"
-              :style="{ backgroundColor: `${getDimensionColor(idx)}20`, color: getDimensionColor(idx) }">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner bg-page">
               {{ getDimensionIcon(idx) }}
             </div>
-            <div class="text-2xl font-black" :style="{ color: getDimensionColor(idx) }">
+            <div class="text-2xl font-black" :style="{ color: getDimensionColor(dim.score) }">
               {{ dim.score }}
             </div>
           </div>
           <h4 class="font-bold text-title mb-1">{{ dim.dimension }}评分</h4>
           <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
-            补正系数: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
+            主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
           </div>
           <div class="flex flex-wrap gap-1.5">
             <span v-for="tag in dim.tag" :key="tag"
-              class="px-2 py-1 bg-page text-[10px] text-body rounded-md border border-block group-hover:border-highlight/30 transition-colors">
+              class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[10px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
               {{ tag }}
             </span>
+            <!-- 备用红色: bg-[#E8E5E5] text-[#857072] border-[#D6D2D2] hover:border-[#BAB5B5] -->
           </div>
         </div>
       </section>
@@ -81,8 +98,10 @@
       <section class="bg-block/50 rounded-2xl p-3 border border-block">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class=" w-5 h-5 text-warn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class=" w-5 h-5 text-warn" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
           <div>
@@ -122,27 +141,43 @@ const getDimensionIcon = (idx: number) => {
 }
 
 // 维度颜色 (从 tailwind 配置中提取或补充)
-const getDimensionColor = (idx: number) => {
-  const colors = [
-    '#B17E87', // highlight
-    '#9D8189', // mauve
-    '#D3AB9E', // taupe
-    '#6B705C', // olive (补充)
-    '#A5A58D'  // sage (补充)
+const getDimensionColor = (score: number) => {
+  const scoreColors = [
+    '#FDFBFC',  // 1分（极浅）
+    '#F5F0F1',  // 2分
+    '#E9DFE1',  // 3分
+    '#E0CACD',  // 4分
+    '#D4B4B9',  // 5分（中间色）
+    '#CA9CA3',  // 6分
+    '#BF838B',  // 7分
+    '#B46A74',  // 8分
+    '#A8505C',  // 9分
+    '#993D4A'   // 10分（深浓红）
   ]
-  return colors[idx] || '#2E2E2E'
+  const idx = Math.max(0, Math.min(Math.floor(score - 1), 9))
+  return scoreColors[idx] || '#B17E87'
 }
+
 
 const initRadarChart = () => {
   if (!radarChartRef.value || !evaluation.value?.mark) return
 
   myChart = echarts.init(radarChartRef.value)
 
-  const indicator = evaluation.value.mark.baseScore.map((dim, idx) => ({
-    name: dim.dimension,
-    max: 10,
-    color: '#2E2E2E'
-  }))
+  const richStyles: any = {}
+  const indicator = evaluation.value.mark.baseScore.map((dim, idx) => {
+    const styleKey = `score_${idx}`
+    richStyles[styleKey] = {
+      color: getDimensionColor(dim.score),
+      fontSize: 14,
+      fontWeight: '900',
+      align: 'center'
+    }
+    return {
+      name: `${dim.dimension}\n{${styleKey}|${dim.score.toFixed(1)}}`,
+      max: 10
+    }
+  })
 
   const dataValues = evaluation.value.mark.baseScore.map(dim => dim.score)
 
@@ -150,25 +185,29 @@ const initRadarChart = () => {
     radar: {
       indicator,
       radius: '65%',
-      splitNumber: 4,
+      splitNumber: 5,
       axisName: {
         fontWeight: 'bold',
-        fontSize: 12,
-        fontFamily: 'sans-serif'
+        fontSize: 11,
+        fontFamily: 'sans-serif',
+        color: '#554C4F',
+        lineHeight: 18,
+        rich: richStyles
       },
       splitLine: {
         lineStyle: {
-          color: '#E5E5E5'
+          color: 'rgba(229, 220, 224, 0.8)',
+          width: 1
         }
       },
       splitArea: {
         areaStyle: {
-          color: ['#FFFFFF', '#F8F5F6']
+          color: ['#FFFFFF', '#FDFBFC']
         }
       },
       axisLine: {
         lineStyle: {
-          color: '#E5E5E5'
+          color: 'rgba(229, 220, 224, 0.5)'
         }
       }
     },
@@ -180,25 +219,32 @@ const initRadarChart = () => {
             value: dataValues,
             name: '评分',
             symbol: 'circle',
-            symbolSize: 6,
+            symbolSize: 8,
             itemStyle: {
-              color: '#B17E87'
+              color: '#B17E87',
+              borderColor: '#fff',
+              borderWidth: 2,
+              shadowBlur: 5,
+              shadowColor: 'rgba(0,0,0,0.1)'
             },
             areaStyle: {
               color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
                 {
                   offset: 0,
-                  color: 'rgba(177, 126, 135, 0.2)'
+                  color: 'rgba(177, 126, 135, 0.1)'
                 },
                 {
                   offset: 1,
-                  color: 'rgba(177, 126, 135, 0.6)'
+                  color: 'rgba(177, 126, 135, 0.4)'
                 }
               ])
             },
             lineStyle: {
-              width: 3,
-              color: '#B17E87'
+              width: 4,
+              color: '#B17E87',
+              shadowBlur: 10,
+              shadowColor: 'rgba(177, 126, 135, 0.3)',
+              shadowOffsetY: 4
             }
           }
         ]
