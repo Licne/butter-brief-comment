@@ -5,9 +5,9 @@
       <section class="grid md:grid-cols-12 gap-12 items-start">
         <!-- 基础信息 -->
         <div class="md:col-span-8 flex flex-col gap-8 items-start">
-          <!-- 封面图占位符 -->
+          <!-- 封面图 -->
           <div class="md:col-span-7 flex flex-col md:flex-row gap-8 items-start">
-            <div class="w-48 h-64 bg-block rounded-2xl flex-shrink-0 overflow-hidden relative group ">
+            <div class="w-48 h-64 bg-block rounded-2xl flex-shrink-0 overflow-hidden relative group animate-in-scale shadow-xl">
               <img :src="`/assets/cover/${route.params.id}.png`" :alt="evaluation.gameNameCN"
                 class="w-full h-full object-cover object-left" @error="(e) => (e.target as HTMLImageElement).style.display = 'none'" />
               <div class="absolute inset-0 bg-gradient-to-tr from-highlight/20 to-transparent"></div>
@@ -15,7 +15,7 @@
                 COVER IMAGE
               </div>
             </div>
-            <div class="space-y-4 flex-grow pt-4">
+            <div class="space-y-4 flex-grow pt-4 animate-in-slide-up delay-100">
               <div
                 class="inline-block px-3 py-1 bg-highlight text-white text-xs font-bold rounded-full uppercase tracking-widest">
                 {{ evaluation.gameType || 'GAME' }}
@@ -57,45 +57,48 @@
               </div>
             </div>
           </div>
-          <div class="w-full">
+          <div class="w-full animate-in-slide-up delay-200">
             <p class="text-[10px] text-desc font-bold uppercase tracking-widest w-full h-20 bg-block p-2 rounded-md">
               {{ evaluation.gameIntro || '暂无游戏介绍' }}
             </p>
           </div>
         </div>
         <!-- 雷达图展示区域 -->
-        <div class="md:col-span-4 bg-card bg-opacity-70 backdrop-blur-md p-6 rounded-[2.5rem]  border border-block">
-          <h3 class="text-center font-bold text-title mb-4 tracking-widest uppercase text-sm">基础维度评分</h3>
-          <div ref="radarChartRef" class="w-full h-72"></div>
+        <div class="md:col-span-4 bg-card bg-opacity-70 backdrop-blur-md p-6 rounded-[2.5rem] border border-block animate-in-fade delay-300">
+          <h3 class="text-center font-bold text-title mb-4 tracking-widest uppercase text-sm">维度评分雷达图</h3>
+          <div ref="radarChartRef" class="w-full h-72 animate-float"></div>
         </div>
       </section>
       <!-- 3. 五个维度的详细评分卡片 -->
       <section class="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div v-for="(dim, idx) in evaluation.mark?.baseScore" :key="idx"
-          class="bg-white p-6 rounded-[2rem] border border-block group hover:-translate-y-2 transition-all duration-300">
-          <div class="flex justify-between items-start mb-4">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner bg-page">
-              {{ getDimensionIcon(idx) }}
+          :class="`animate-in-slide-up delay-${(idx + 4) * 100}`">
+          <div
+            class="bg-white p-6 rounded-[2rem] border border-block group hover:-translate-y-2 transition-all duration-300 h-full">
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner bg-page">
+                {{ getDimensionIcon(idx) }}
+              </div>
+              <div class="text-2xl font-black" :style="{ color: getDimensionColor(dim.score) }">
+                {{ dim.score }}
+              </div>
             </div>
-            <div class="text-2xl font-black" :style="{ color: getDimensionColor(dim.score) }">
-              {{ dim.score }}
+            <h4 class="font-bold text-title mb-1">{{ dim.dimension }}评分</h4>
+            <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
+              主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
             </div>
-          </div>
-          <h4 class="font-bold text-title mb-1">{{ dim.dimension }}评分</h4>
-          <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
-            主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
-          </div>
-          <div class="flex flex-wrap gap-1.5">
-            <span v-for="tag in dim.tag" :key="tag"
-              class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[10px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
-              {{ tag }}
-            </span>
-            <!-- 备用红色: bg-[#E8E5E5] text-[#857072] border-[#D6D2D2] hover:border-[#BAB5B5] -->
+            <div class="flex flex-wrap gap-1.5">
+              <span v-for="tag in dim.tag" :key="tag"
+                class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[10px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
+                {{ tag }}
+              </span>
+              <!-- 备用红色: bg-[#E8E5E5] text-[#857072] border-[#D6D2D2] hover:border-[#BAB5B5] -->
+            </div>
           </div>
         </div>
       </section>
       <!-- 免责声明 -->
-      <section class="bg-block/50 rounded-2xl p-3 border border-block">
+      <section class="bg-block/50 rounded-2xl p-3 border border-block animate-in-fade delay-700">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" class=" w-5 h-5 text-warn" fill="none" viewBox="0 0 24 24"
@@ -272,5 +275,76 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 可以在这里添加一些微调的样式 */
+/* 进入动效 */
+.animate-in-fade {
+  animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-in-slide-up {
+  opacity: 0;
+  animation: slideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-in-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: scaleIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 持续微动效 */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-soft-pulse {
+  animation: softPulse 4s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.01); }
+}
+
+/* 阶梯延迟 */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+.delay-900 { animation-delay: 900ms; }
 </style>
