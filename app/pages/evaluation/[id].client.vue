@@ -66,7 +66,7 @@
         <!-- 雷达图展示区域 -->
         <div class="md:col-span-4 bg-card bg-opacity-70 backdrop-blur-md p-6 rounded-[2.5rem] border border-block animate-in-fade delay-300">
           <h3 class="text-center font-bold text-title mb-4 tracking-widest uppercase text-sm">维度评分雷达图</h3>
-          <div ref="radarChartRef" class="w-full h-72 animate-float"></div>
+          <div ref="radarChartRef" class="w-full h-72"></div>
         </div>
       </section>
       <!-- 3. 五个维度的详细评分卡片 -->
@@ -84,9 +84,9 @@
               </div>
             </div>
             <h4 class="font-bold text-title mb-1">{{ dim.dimension }}评分</h4>
-            <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
+            <!-- <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
               主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
-            </div>
+            </div> -->
             <div class="flex flex-wrap gap-1.5">
               <span v-for="tag in dim.tag" :key="tag"
                 class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[10px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
@@ -139,17 +139,17 @@ let myChart: echarts.ECharts | null = null
 
 // 维度图标
 const getDimensionIcon = (idx: number) => {
-  const icons = ['🎵', '🔞', '📖', '🎮', '🎭']
+  const icons = ['🖼️', '🔞', '📖', '🎮', '🎬']
   return icons[idx] || '⭐'
 }
 
 // 维度颜色 (从 tailwind 配置中提取或补充)
 const getDimensionColor = (score: number) => {
   const scoreColors = [
-    '#FDFBFC',  // 1分（极浅）
-    '#F5F0F1',  // 2分
-    '#E9DFE1',  // 3分
-    '#E0CACD',  // 4分
+    '#CBD5E1',  // 1分：冷淡灰（表现欠佳）
+    '#B0BCCB',  // 2分：中性蓝灰
+    '#94A3B8',  // 3分：深蓝灰（乏味/较低）
+    '#B9ABAC',  // 4分：灰粉色（过渡区间）
     '#D4B4B9',  // 5分（中间色）
     '#CA9CA3',  // 6分
     '#BF838B',  // 7分
