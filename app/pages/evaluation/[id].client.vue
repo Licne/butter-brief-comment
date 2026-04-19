@@ -43,7 +43,7 @@
                   </div>
                 </div>
 
-                <div class="pb-1">
+                <div v-if="downLoadVerify" class="pb-1">
                   <button
                     class="px-6 py-2 bg-highlight text-white text-sm font-bold rounded-full hover:bg-highlight/90 transition-all shadow-lg shadow-highlight/20 flex items-center gap-2 group active:scale-95">
                     <span>获取资源</span>
@@ -58,8 +58,8 @@
             </div>
           </div>
           <div class="w-full animate-in-slide-up delay-200">
-            <p class="text-[10px] text-desc font-bold uppercase tracking-widest w-full h-20 bg-block p-2 rounded-md">
-              {{ evaluation.gameIntro || '暂无游戏介绍' }}
+            <p class="text-sm text-desc font-medium uppercase tracking-widest w-full h-20 bg-block p-2 rounded-md">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ evaluation.gameIntro || '暂无游戏介绍' }}
             </p>
           </div>
         </div>
@@ -70,7 +70,7 @@
         </div>
       </section>
       <!-- 3. 五个维度的详细评分卡片 -->
-      <section class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <section class="grid grid-cols-1 md:grid-cols-5 gap-6 min-h-[calc(100vh-540px)]">
         <div v-for="(dim, idx) in evaluation.mark?.baseScore" :key="idx"
           :class="`animate-in-slide-up delay-${(idx + 4) * 100}`">
           <div
@@ -84,12 +84,12 @@
               </div>
             </div>
             <h4 class="font-bold text-title mb-1">{{ dim.dimension }}评分</h4>
-            <!-- <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
-              主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span>
-            </div> -->
+            <div class="text-[10px] text-desc font-bold uppercase tracking-widest mb-4">
+              <!-- 主观补正: <span class="text-highlight">x{{ dim.correction || 1.0 }}</span> -->
+            </div>
             <div class="flex flex-wrap gap-1.5">
               <span v-for="tag in dim.tag" :key="tag"
-                class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[10px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
+                class="px-2 py-1 bg-[#E6E8E6] text-[#687472] text-[12px] rounded-md border border-[#D4D8D5] group-hover:border-[#AAB5AF] transition-colors">
                 {{ tag }}
               </span>
               <!-- 备用红色: bg-[#E8E5E5] text-[#857072] border-[#D6D2D2] hover:border-[#BAB5B5] -->
@@ -133,6 +133,7 @@ import { getEvaluationById } from '~/utils/mockEvaluation'
 
 const route = useRoute()
 const evaluation = ref(getEvaluationById(route.params.id as string))
+const downLoadVerify = ref(false)
 
 const radarChartRef = ref<HTMLElement | null>(null)
 let myChart: echarts.ECharts | null = null
@@ -160,7 +161,6 @@ const getDimensionColor = (score: number) => {
   const idx = Math.max(0, Math.min(Math.floor(score - 1), 9))
   return scoreColors[idx] || '#B17E87'
 }
-
 
 const initRadarChart = () => {
   if (!radarChartRef.value || !evaluation.value?.mark) return
